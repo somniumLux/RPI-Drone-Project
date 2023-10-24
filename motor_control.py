@@ -35,7 +35,6 @@ def set_motor_pwm(pwm_pin_1, pwm_pin_2, pwm_pin_3, pwm_pin_4, duty_cycle):
 cycle_ratio = 3
 DT = 65536*cycle_ratio/100
 
-print("Initializing motors")
 while True:
     DT = 65536*cycle_ratio/100
     set_motor_pwm(pwm_pin_1, pwm_pin_2, pwm_pin_3, pwm_pin_4, int(DT))
