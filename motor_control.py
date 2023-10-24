@@ -21,19 +21,52 @@ pwm_pin_4.freq(pwm_freq)
 
 print("PWM frequency is " + str(pwm_freq) + " Hz")
 
+def set_motor_pwm(pwm_pin_1, pwm_pin_2, pwm_pin_3, pwm_pin_4, duty_cycle):
+    pwm_pin_1.duty_u16(duty_cycle)
+    pwm_pin_2.duty_u16(duty_cycle)
+    pwm_pin_3.duty_u16(duty_cycle)
+    pwm_pin_4.duty_u16(duty_cycle)
+
 # beeping stops at 4% cca
 # motor starts rotating at 5% cca
 # motor stops speeding up at 6.8% cca
 # motor stops rotating at 12% cca
 
 cycle_ratio = 3
+DT = 65536*cycle_ratio/100
+
 while True:
+    DT = 65536*cycle_ratio/100
+    set_motor_pwm(pwm_pin_1, pwm_pin_2, pwm_pin_3, pwm_pin_4, int(DT))
+    """pwm_pin_1.duty_u16(int(DT))
+    pwm_pin_2.duty_u16(int(DT))
+    pwm_pin_3.duty_u16(int(DT))
+    pwm_pin_4.duty_u16(int(DT))"""
+    print("Duty cycle is -> " + str(cycle_ratio) + " %")
+    time.sleep(0.2)
+    cycle_ratio += 0.1
+    if cycle_ratio >= 4.6:
+        pwm_pin_1.duty_u16(0)
+        pwm_pin_2.duty_u16(0)
+        pwm_pin_3.duty_u16(0)
+        pwm_pin_4.duty_u16(0)
+        break
+    
+print("Motors are initialized")
+while True:
+    cycle_ratio = float(input("Input PWM value --> "))
+    print(f"PWM is set to {}", cycle_ratio)
+    if cycle_ratio < 0:
+        break
+    if cycle_ratio > 12:
+        cycle_ratio = 12
     DT = 65536*cycle_ratio/100
     pwm_pin_1.duty_u16(int(DT))
     pwm_pin_2.duty_u16(int(DT))
     pwm_pin_3.duty_u16(int(DT))
     pwm_pin_4.duty_u16(int(DT))
-    print("Duty cycle is -> " + str(cycle_ratio) + " %")
-    time.sleep(0.5)
-    cycle_ratio += 0.1
+    
+    
+    
+    
     
