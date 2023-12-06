@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drone Data Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .data-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 20px;
+        }
+
+        .data-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 10px;
+            text-align: center;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            font-size: 18px;
+        }
+
+        p {
+            font-size: 24px;
+        }
+
+        /* Altitude control styles */
+        .altitude-control {
+            text-align: center;
+            margin: 20px;
+        }
+
+        input[type="range"] {
+            width: 25%;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 15px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Drone Data Dashboard</h1>
+    </header>
+    <div class="data-container">
+        <div class="data-card">
+            <h2>Altitude</h2>
+            <p id="altitude">Loading...</p>
+        </div>
+        <div class="data-card">
+            <h2>RPM</h2>
+            <p id="rpm">Loading...</p>
+        </div>
+        <div class="data-card">
+            <h2>Battery Voltage</h2>
+            <p id="voltage">Loading...</p>
+        </div>
+        <div class="data-card">
+            <h2>Temperature</h2>
+            <p id="temperature">Loading...</p>
+        </div>
+    </div>
+    <!-- Altitude control -->
+    <div class="altitude-control">
+        <label for="newAltitude">Adjust Altitude:</label>
+        <input type="range" id="newAltitude" min="0" max="0.5" step="0.01" value="0" onchange="updateAltitude(this.value)">
+        <p id="selectedAltitude">0 m</p>
+        <button onclick="setAltitude()">Execute</button>
+    </div>
+    <script>
+        // Simulate live data with randomly generated numbers
+        function simulateLiveData() {
+            document.getElementById('altitude').textContent = Math.floor(Math.random() * 1000) + " m";
+            document.getElementById('rpm').textContent = Math.floor(Math.random() * 5000) + " RPM";
+            document.getElementById('voltage').textContent = (Math.random() * (25 - 22) + 22).toFixed(2) + " V";
+            document.getElementById('temperature').textContent = (Math.random() * (40 - 20) + 20).toFixed(2) + " °C";
+        }
+
+        // Function to update selected altitude
+        function updateAltitude(value) {
+            document.getElementById('selectedAltitude').textContent = value + " m";
+        }
+
+        // Function to set new altitude
+        function setAltitude() {
+            var newAltitude = document.getElementById('newAltitude').value;
+            document.getElementById('altitude').textContent = newAltitude + " m";
+        }
+
+        // Update data every 2 seconds (adjust the interval as needed)
+        setInterval(simulateLiveData, 2000);
+
+        // Initial data load
+        simulateLiveData();
+    </script>
+</body>
+</html>
