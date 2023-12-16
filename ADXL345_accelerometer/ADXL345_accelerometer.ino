@@ -1,8 +1,9 @@
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_ADXL345_U.h>
+#include <ArduinoJson.h>
 
-Adafruit_ADXL345_Unified accel = Adafruit_ADXL345_Unified();
+Adafruit_ADXL345_Unified accelerometer = Adafruit_ADXL345_Unified();
 
 void setup() {
 
@@ -12,7 +13,7 @@ void setup() {
 
   Serial.begin(9600);
 
-  if (!accel.begin()) {
+  if (!accelerometer.begin()) {
     Serial.println("Sensor not found");
     while(1);
   }
@@ -22,19 +23,23 @@ void setup() {
 void loop() {
       
   sensors_event_t event;
-  accel.getEvent(&event);
+  accelerometer.getEvent(&event);
 
-  /*Serial.print(event.acceleration.x);
+  Serial.print(event.acceleration.x);
   Serial.print(" ");
   Serial.print(event.acceleration.y);
   Serial.print(" ");
-  Serial.println(event.acceleration.z);*/
+  Serial.println(event.acceleration.z);
 
-  Serial.print("X: "); Serial.print(event.acceleration.x); Serial.println("");
-  Serial.print("Y: "); Serial.print(event.acceleration.y); Serial.println("");
-  Serial.print("Z: "); Serial.print(event.acceleration.z); Serial.println("");
-  Serial.println();  
+  /*StaticJsonDocument<200> accelData;
+  accelData["x"] = event.acceleration.x;
+  accelData["y"] = event.acceleration.y;
+  accelData["z"] = event.acceleration.z;
 
-  delay(50);
+  String jsonData;
+  serializeJson(accelData, jsonData);
+  Serial.print(jsonData);*/
+
+  delay(1000);
 
 }
