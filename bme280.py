@@ -10,7 +10,7 @@ def calculate_altitude(pressure, temperature):
     pressure_at_sea_level = float(1013.25)
     temperature_at_sea_level = float(288.15)
     earth_molar_mass = float(0.029)
-    gravity = float(9.81)
+    gravity = float(9.8062)
     gas_constant = float(8.314)
     lapse_rate = float(-0.0065)
     
