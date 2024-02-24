@@ -2,7 +2,7 @@ import machine
 import time
 import MPU6050
 
-i2c = machine.I2C(1, sda=machine.Pin(14), scl=machine.Pin(15))
+i2c = machine.I2C(0, sda=machine.Pin(0), scl=machine.Pin(1), freq=400000)
  
 mpu = MPU6050.MPU6050(i2c)
 mpu.wake()
