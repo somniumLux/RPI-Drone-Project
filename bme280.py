@@ -1,9 +1,10 @@
-from machine import Pin, I2C
+import machine
 from time import sleep
 import math
 import bme280
 
-i2c = I2C(0, sda=Pin(0), scl=Pin(1), freq=400000)
+i2c = machine.I2C(1, sda=machine.Pin(14), scl=machine.Pin(15), freq=400000)
+print(i2c)
 last_altitude = 0.
 
 def calculate_altitude(pressure, temperature):
