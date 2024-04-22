@@ -5,6 +5,8 @@ import bme280
 
 i2c = machine.I2C(1, sda=machine.Pin(14), scl=machine.Pin(15), freq=400000)
 print(i2c)
+devices = i2c.scan()
+print("I2C devices found:", devices)
 last_altitude = 0.
 
 def calculate_altitude(pressure, temperature):
